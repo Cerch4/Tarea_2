@@ -1,6 +1,6 @@
 package tarea.pkg2;
 public abstract class Bebida {
-    int numSerie;
+    private int numSerie;
     public Bebida(int numSerie){
         this.numSerie = numSerie;
     }
