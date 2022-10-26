@@ -9,8 +9,8 @@ package tarea.pkg2;
  * @author Cesar
  */
 class Moneda500 extends Moneda {
-    public Moneda500(int s){
-        super(s);
+    public Moneda500(){
+        super();
     }
     @Override
     public int getValor() {

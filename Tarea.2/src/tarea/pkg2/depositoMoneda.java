@@ -17,14 +17,14 @@ public class depositoMoneda {
         this.varl = new ArrayList<Moneda>();
     }
    public void addBebida(Moneda mon){
-       varl.add(bob);
+       varl.add(mon);
    }
-   public Bebida getBebida(){
-       if(varl.size() == 0){
+   public Moneda getMoneda(){
+       if(varl.isEmpty()){
            return null;
        }
        else{
-           Bebida aux = null;
+           Moneda aux = null;
            aux = varl.remove(0);  
            return(aux);
        }
@@ -33,5 +33,4 @@ public class depositoMoneda {
        return(varl.size());
    }
 }
-}
-}
+

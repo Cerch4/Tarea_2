@@ -9,10 +9,10 @@ package tarea.pkg2;
  * @author Cesar
  */
 public abstract class Moneda {
-    private int numSerie;
-    public Moneda(int nserie){
-        numSerie = nserie;
+    public Moneda(){   
     }
-    
+    public String getSerie(){
+        return(this.toString());
+    }
     public abstract int getValor();
 }
