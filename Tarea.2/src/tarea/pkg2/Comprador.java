@@ -9,17 +9,23 @@ package tarea.pkg2;
  * @author Cesar
  */
 public class Comprador {
-    private int money;
+    private Bebida Bebida;
+    private depositoMoneda DM;
+    private int vuelto = 0;
     private String flavor;
-    public Comprador(Moneda mon, int sabor, Expendedor Amogus){
-        Amogus.compraBebida(mon, sabor);
-        while(Amogus.getVuelto != null){
-            money = money+Amogus.getVuelto().getValor;
+    public Comprador(Moneda money, int sabor, Expendedor exp) throws NoHayBebidaException, PagoIncorrectoException, PagoInsuficienteException{
+        Bebida = exp.comprarBebida(money, sabor);
+        while(true){
+            Moneda m = exp.getVuelto();
+            if (m != null) {
+                break;
+            }
+            vuelto = vuelto + m.getValor();
         }
-        flavor = Amogus.Beber;
+        flavor = Bebida.beber();
     }
     public int cuantoVuelto(){
-        return(money);
+        return(vuelto);
     }
     
     public String queBebiste(){

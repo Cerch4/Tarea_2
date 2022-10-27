@@ -16,7 +16,7 @@ public class depositoMoneda {
    public depositoMoneda(){
         this.varl = new ArrayList<Moneda>();
     }
-   public void addBebida(Moneda mon){
+   public void addMoneda(Moneda mon){
        varl.add(mon);
    }
    public Moneda getMoneda(){

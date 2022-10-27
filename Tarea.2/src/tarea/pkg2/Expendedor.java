@@ -1,55 +1,82 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package tarea.pkg2;
-
-/**
- *
- * @author Cesar
- */
 public class Expendedor {
-    private depositoMoneda platica = new depositoMoneda();
-    private DepositoBebida glucgluc;
-    private int cantBebidas[]= new int[3];
-    
-    public Expendedor(int nbebidas, int price){
-        cantBebidas[0]=nbebidas;
-        cantBebidas[1]=nbebidas;
-        cantBebidas[2]=nbebidas;
-        for(int k = 0; k<3; k = k+1){
-            for(int i = 0; i<nbebidas; i = i+1){
-                switch (k) {
-                    case 0:{
-                            CocaCola aux = new CocaCola(i+100);
-                            glucgluc.addBebida(aux);
-                            break;
-                        }
-                    case 1:{
-                            Fanta aux = new Fanta(i+200);
-                            glucgluc.addBebida(aux);
-                            break;
-                        }
-                    case 2:{
-                            Sprite aux = new Sprite(i+300);
-                            glucgluc.addBebida(aux);
-                            break;
-                        }
-                    default:
-                       break;
+    private depositoMoneda DVuelto = new depositoMoneda();
+    private int precio;
+    private DepositoBebida cocacola;
+    private DepositoBebida sprite;
+    private DepositoBebida fanta;
+    public Expendedor(int nbebidas, int precio){
+        this.precio = precio;
+        for (int i = 0; i < nbebidas; i++) {
+            CocaCola auxC = new CocaCola (i);
+            cocacola.addBebida(auxC);
+            Sprite auxS = new Sprite (nbebidas+i);
+            sprite.addBebida(auxS);
+            Fanta auxF = new Fanta ((nbebidas*2)+i);
+            fanta.addBebida(auxF);
+        }
+    }    
+    public Bebida comprarBebida(Moneda m, int n) throws NoHayBebidaException, PagoIncorrectoException, PagoInsuficienteException{
+        int money = m.getValor();
+        if (m == null) {
+            throw new PagoIncorrectoException("Pago no valido");
+        }
+        if (m.getValor()<precio) {
+            throw new PagoInsuficienteException("El Monto de Pago no es suficiente para realizar la transaccion");
+        }
+        switch(n){
+            case 1: 
+                if(cocacola.getStorage()==0){
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("Actualmente no hay mas Cocacola, lo sentimos");
+                } 
+            case 2: 
+                if(sprite.getStorage()==0){
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("Actualmente no hay mas Sprite, lo sentimos");
+                } 
+            case 3: 
+                if(fanta.getStorage()==0){
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("Actualmente no hay mas Fanta, lo sentimos");
                 }
-            }
-        }       
+            default:
+                if (n!=1&&n!=2||n!=3) {
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("no hay Bebida asociada al numero ingresado, lo sentimos");
+                }
+        }
+        Bebida out = null;
+        switch(n){
+            case 1: 
+                out = cocacola.getBebida();
+                while(money!=0){
+                    DVuelto.addMoneda(new Moneda100());
+                }
+                break;
+            case 2: 
+                out = sprite.getBebida(); 
+                while(money!=0){
+                    DVuelto.addMoneda(new Moneda100());
+                }
+                break;
+            case 3: 
+                out = fanta.getBebida(); 
+                while(money!=0){
+                    DVuelto.addMoneda(new Moneda100());
+                }
+                break;
+        }
+        return out;
     }
-    
-    public Bebida comprarBebida(Moneda m, int sabor){
-        switch (sabor){
-            case 0:{
-                int aux = cantBebidas[0];
-                return(glucgluc.getBebida
-            }
+    public Moneda getVuelto(){
+        if (DVuelto.check()!=0) {
+            return DVuelto.getMoneda();
+        }else{
+            return null;
         }
     }
-    
-    
+    public int getPrice(){
+        return precio;
+    }
 }

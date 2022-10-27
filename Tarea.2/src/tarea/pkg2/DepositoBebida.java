@@ -15,4 +15,7 @@ public class DepositoBebida {
             return al.remove(0);
         }
     }
+    public int getStorage(){
+        return al.size();
+    }
 }
