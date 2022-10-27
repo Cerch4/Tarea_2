@@ -9,15 +9,13 @@ package tarea.pkg2;
  * @author Cesar
  */
 public class Comprador {
-    private Bebida Bebida;
-    private depositoMoneda DM;
     private int vuelto = 0;
     private String flavor;
     public Comprador(Moneda money, int sabor, Expendedor exp) throws NoHayBebidaException, PagoIncorrectoException, PagoInsuficienteException{
-        Bebida = exp.comprarBebida(money, sabor);
+        Bebida Bebida = exp.comprarBebida(money, sabor);
         while(true){
             Moneda m = exp.getVuelto();
-            if (m != null) {
+            if (m == null) {
                 break;
             }
             vuelto = vuelto + m.getValor();

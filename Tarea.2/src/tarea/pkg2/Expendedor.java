@@ -22,50 +22,45 @@ public class Expendedor {
             throw new PagoIncorrectoException("Pago no valido");
         }
         if (m.getValor()<precio) {
+            DVuelto.addMoneda(m);
             throw new PagoInsuficienteException("El Monto de Pago no es suficiente para realizar la transaccion");
-        }
-        switch(n){
-            case 1: 
-                if(cocacola.getStorage()==0){
-                    DVuelto.addMoneda(m);
-                    throw new NoHayBebidaException("Actualmente no hay mas Cocacola, lo sentimos");
-                } 
-            case 2: 
-                if(sprite.getStorage()==0){
-                    DVuelto.addMoneda(m);
-                    throw new NoHayBebidaException("Actualmente no hay mas Sprite, lo sentimos");
-                } 
-            case 3: 
-                if(fanta.getStorage()==0){
-                    DVuelto.addMoneda(m);
-                    throw new NoHayBebidaException("Actualmente no hay mas Fanta, lo sentimos");
-                }
-            default:
-                if (n!=1&&n!=2||n!=3) {
-                    DVuelto.addMoneda(m);
-                    throw new NoHayBebidaException("no hay Bebida asociada al numero ingresado, lo sentimos");
-                }
         }
         Bebida out = null;
         switch(n){
             case 1: 
                 out = cocacola.getBebida();
+                if (out == null) {
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("Actualmente no hay mas Cocacola, lo sentimos");
+                }
                 while(money!=0){
                     DVuelto.addMoneda(new Moneda100());
                 }
                 break;
             case 2: 
-                out = sprite.getBebida(); 
+                out = sprite.getBebida();
+                if (out == null) {
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("Actualmente no hay mas Sprite, lo sentimos");
+                }
                 while(money!=0){
                     DVuelto.addMoneda(new Moneda100());
                 }
                 break;
             case 3: 
-                out = fanta.getBebida(); 
+                out = fanta.getBebida();
+                if (out == null) {
+                    DVuelto.addMoneda(m);
+                    throw new NoHayBebidaException("Actualmente no hay mas Fanta, lo sentimos");
+                }
                 while(money!=0){
                     DVuelto.addMoneda(new Moneda100());
                 }
                 break;
+            default:
+                if (n!=1&&n!=2&&n!=3) {
+                    throw new NoHayBebidaException("El numero ingresado no posee una bebida asociada");
+                }
         }
         return out;
     }
