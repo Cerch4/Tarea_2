@@ -22,7 +22,6 @@ public class Expendedor {
             throw new PagoIncorrectoException("Pago no valido");
         }
         if (m.getValor()<precio) {
-            DVuelto.addMoneda(m);
             throw new PagoInsuficienteException("El Monto de Pago no es suficiente para realizar la transaccion");
         }
         Bebida out = null;
@@ -30,9 +29,9 @@ public class Expendedor {
             case 1: 
                 out = cocacola.getBebida();
                 if (out == null) {
-                    DVuelto.addMoneda(m);
                     throw new NoHayBebidaException("Actualmente no hay mas Cocacola, lo sentimos");
                 }
+                money = money - precio;
                 while(money>0){
                     DVuelto.addMoneda(new Moneda100());
                     money = money - 100;
@@ -41,9 +40,9 @@ public class Expendedor {
             case 2: 
                 out = sprite.getBebida();
                 if (out == null) {
-                    DVuelto.addMoneda(m);
                     throw new NoHayBebidaException("Actualmente no hay mas Sprite, lo sentimos");
                 }
+                money = money - precio;
                 while(money>0){
                     DVuelto.addMoneda(new Moneda100());
                     money = money - 100;
@@ -52,9 +51,9 @@ public class Expendedor {
             case 3: 
                 out = fanta.getBebida();
                 if (out == null) {
-                    DVuelto.addMoneda(m);
                     throw new NoHayBebidaException("Actualmente no hay mas Fanta, lo sentimos");
                 }
+                money = money - precio;
                 while(money>0){
                     DVuelto.addMoneda(new Moneda100());
                     money = money - 100;
@@ -68,7 +67,7 @@ public class Expendedor {
         return out;
     }
     public Moneda getVuelto(){
-        if (DVuelto.check()!=0) {
+        if (DVuelto.check()>0) {
             return DVuelto.getMoneda();
         }else{
             return null;
