@@ -14,7 +14,7 @@ public class depositoMoneda {
    private ArrayList<Moneda> varl;
 
    public depositoMoneda(){
-        this.varl = new ArrayList<Moneda>();
+        varl = new ArrayList<Moneda>();
     }
    public void addMoneda(Moneda mon){
        varl.add(mon);

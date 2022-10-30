@@ -2,9 +2,9 @@ package tarea.pkg2;
 public class Expendedor {
     private depositoMoneda DVuelto = new depositoMoneda();
     private int precio;
-    private DepositoBebida cocacola;
-    private DepositoBebida sprite;
-    private DepositoBebida fanta;
+    private DepositoBebida cocacola = new DepositoBebida();
+    private DepositoBebida sprite = new DepositoBebida();
+    private DepositoBebida fanta = new DepositoBebida();
     public Expendedor(int nbebidas, int precio){
         this.precio = precio;
         for (int i = 0; i < nbebidas; i++) {
@@ -33,8 +33,9 @@ public class Expendedor {
                     DVuelto.addMoneda(m);
                     throw new NoHayBebidaException("Actualmente no hay mas Cocacola, lo sentimos");
                 }
-                while(money!=0){
+                while(money>0){
                     DVuelto.addMoneda(new Moneda100());
+                    money = money - 100;
                 }
                 break;
             case 2: 
@@ -43,8 +44,9 @@ public class Expendedor {
                     DVuelto.addMoneda(m);
                     throw new NoHayBebidaException("Actualmente no hay mas Sprite, lo sentimos");
                 }
-                while(money!=0){
+                while(money>0){
                     DVuelto.addMoneda(new Moneda100());
+                    money = money - 100;
                 }
                 break;
             case 3: 
@@ -53,8 +55,9 @@ public class Expendedor {
                     DVuelto.addMoneda(m);
                     throw new NoHayBebidaException("Actualmente no hay mas Fanta, lo sentimos");
                 }
-                while(money!=0){
+                while(money>0){
                     DVuelto.addMoneda(new Moneda100());
+                    money = money - 100;
                 }
                 break;
             default:
